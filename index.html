@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Vegetables</title>
+  <title>practice</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <style type="text/css">
     button,
     div,
@@ -14,14 +15,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>Vegetables Doing Stuff</h1>
-    <form id="vegetable-form">
-      <label for="vegetable-input">Add Another Vegetable</label>
-      <input type="text" id="vegetable-input">
-      <br>
-      
-      <input id="add-vegetable" type="submit" value="Add a Vegetable"> <!--not working-->
-    </form> 
+    <h1> Vegetables Doing Stuff</h1>
+     
     <div id="buttons-view"></div>
     <div id="vegetable-view"></div>
     
@@ -37,24 +32,36 @@
       function displayVegetableInfo() { 
         var vegetable = $(this).attr("data-name"); 
         
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=lYq7B9X03ovpQhtDGUV1edy7hf1xLwk1&q=" +vegetable+ "&limit=10&offset=0&rating=G&lang=en";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=lYq7B9X03ovpQhtDGUV1edy7hf1xLwk1&q=" + vegetable + "&limit=10&offset=0&rating=G&lang=en";
         $.ajax({
           url: queryURL,
           method: "GET"
          
         })
-        .then(function(response) {
-          var veggieDiv = $("<div class='vegetable'>");
+        .then(function(response) { 
+          $("#vegetable-view").empty();
+          var results = response.data;
+
+            for(var i = 0; i < results.length; i++) {
+            var veggieDiv = $("<div class = 'vegetable'>"); // ?
             
-          veggieDiv.prepend(vegetable);
-          
-
-
-          var rating = response.Rating;   //not sure about rated vs rating vs Rated here
+          }
+//undefined errors//
+          var rating = results[i].rating;   
           var pOne = $("<p>").text("Rating: " + rating);
-          veggieDiv.append(pOne);
-                    
-          $("#vegetable-view").append(veggieDiv);
+          
+          var gifURL = results[i].images.fixed_height.url;
+          var gif = $("<img>").attr("src", gifURL);
+
+          var urlStill= results[i].images.fixed_height_still.url;
+          var urlPlay = results[i].images.fixed_height.url;
+
+          var gif = $("<img>").addClass("gif").attr("src", urlStill).attr("data-still", urlStill).attr("data-animate", urlPlay);
+
+          veggieDiv.append(gif)
+          veggieDiv.append(pOne)
+
+          
         });
         
       }
@@ -80,22 +87,13 @@
       }
 
 
-      $("#add-vegetable").on("click", function(event) {
-        event.preventDefault();
-        // This line grabs the input from the textbox
-        var vegetable = $("#vegetable-input").val().trim(); ///something wrong here///
-        // Adding vegetable from the textbox to our array
-        vegetable.push(vegetables);   /////something wrong here //////
-        // Calling renderButtons which handles the processing of  vegetable array
-        renderButtons();
-      });
-      // Adding a click event listener to all elements with a class of "veggie-btn"
+       // Adding a click event listener to all elements with a class of "veggie-btn"
       $(document).on("click", ".veggie-btn", displayVegetableInfo);
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
 
        
     </script>
-  </div>
+  
 
 </html>
