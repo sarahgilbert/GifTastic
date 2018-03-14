@@ -1,6 +1,13 @@
-body { background-color: rgb(178, 178, 233)}
 
-    
+body { 
+  
+   background-color: rgb(134, 182, 134);
+    }
+picture {
+  float: left;
+  height: 30px;
+  width: 40px;
+}
     button,
     div,
     form,
