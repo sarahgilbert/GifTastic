@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>practice</title>
+  <title>Vegetables</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <style type="text/css">
     button,
@@ -11,11 +11,14 @@
     input {
       margin: 10px;
     }
+    
   </style>
 </head>
 <body>
   <div class="container">
     <h1> Vegetables Doing Stuff</h1>
+    <h2>Click on a button to see the veggies.</h2>
+    <h2>Click on a veggie to see the magic!</h2>
      
     <div id="buttons-view"></div>
     <div id="vegetable-view"></div>
@@ -28,6 +31,8 @@
 
       
  var vegetables = ["carrot", "onion", "broccoli", "cauliflower", "cucumber", "pea", "kale", "cabbage", "asparagus", "avocado"];
+ var veggieView = $("#vegetable-view");
+ 
            
       function displayVegetableInfo() { 
         var vegetable = $(this).attr("data-name"); 
@@ -39,30 +44,37 @@
          
         })
         .then(function(response) { 
-          $("#vegetable-view").empty();
+          console.log(response)
+          veggieView.empty();
           var results = response.data;
-
+          
             for(var i = 0; i < results.length; i++) {
-            var veggieDiv = $("<div class = 'vegetable'>"); // ?
+            var veggieDiv = $("<div class='vegetable'>"); // ?
+            veggieView.append(veggieDiv);
             
-          }
-//undefined errors//
-          var rating = results[i].rating;   
+          
+
+          console.log(results[i])
+          var rating = results[i].rating;  
+        
           var pOne = $("<p>").text("Rating: " + rating);
           
           var gifURL = results[i].images.fixed_height.url;
-          var gif = $("<img>").attr("src", gifURL);
+          console.log('gifURL: ', gifURL);
+          
+          
 
-          var urlStill= results[i].images.fixed_height_still.url;
-          var urlPlay = results[i].images.fixed_height.url;
+          urlStill= results[i].images.fixed_height_still.url;
+           urlPlay = results[i].images.fixed_height.url;
 
           var gif = $("<img>").addClass("gif").attr("src", urlStill).attr("data-still", urlStill).attr("data-animate", urlPlay);
+          console.log("gif", gif);
 
           veggieDiv.append(gif)
           veggieDiv.append(pOne)
-
-          
-        });
+}
+        
+        }); 
         
       }
      
@@ -91,7 +103,25 @@
       $(document).on("click", ".veggie-btn", displayVegetableInfo);
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
+      $(document).on("click", "img", function() {
+        console.log($(this));
+        //get the element that has the source and the image
+        //if the image is  urlStill change to urlPlay
+        
+        
+        var state =$(this).attr("gif"); // not sure on after attr
 
+        if (state === "data-still") {
+ 
+   $(this).attr("src", $(this).attr("data-animate")
+   );
+   $(this).attr("gif", "animate"); //gif
+        } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("gif", "data-still");  //gif
+      }
+  })
+   
        
     </script>
   
