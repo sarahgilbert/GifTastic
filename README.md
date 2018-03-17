@@ -1,1 +1,1 @@
-# GifTastic
+Vegetables Doing Stuff! Click a vegetable button to see 10 still pictures of the chosen vegetable. Click on a picture to see the magic!

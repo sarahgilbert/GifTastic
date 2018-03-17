@@ -2,6 +2,7 @@
 body { 
   
    background-color: rgb(134, 182, 134);
+   
     }
 picture {
   float: left;
@@ -10,11 +11,12 @@ picture {
 }
     button,
     div,
-    form,
     input {
       margin: 10px;
       color: darkslategrey;
       text-align: center;
     }
+
+   
     
     

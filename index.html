@@ -17,8 +17,8 @@
     <h1> Vegetables Doing Stuff</h1>
     <h2>Click on a button to see the pictures.</h2>
     <h2>Click on a picture to see the magic!</h2>
-    
     <div id="buttons-view"></div>
+      
     <div id="vegetable-view"></div>
     <img id = "picture" src = assets/images/background.png>
     
@@ -28,7 +28,7 @@
     <script type="text/javascript">
 
       
- var vegetables = ["carrot", "onion", "broccoli", "cauliflower", "cucumber", "pea", "kale", "cabbage", "asparagus", "avocado"];
+ var vegetables = ["carrot", "onion", "broccoli", "cauliflower", "cucumber", "squash", "pumpkin", "cabbage", "jalapeno", "avocado"];
  var veggieView = $("#vegetable-view");
  
            
@@ -95,8 +95,7 @@
           $("#buttons-view").append(a);
         }
       }
-
-
+     
        // Adding a click event listener to all elements with a class of "veggie-btn"
       $(document).on("click", ".veggie-btn", displayVegetableInfo);
       // Calling the renderButtons function to display the intial buttons
